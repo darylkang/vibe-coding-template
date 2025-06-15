@@ -1,0 +1,27 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+---
+description: Code style and formatting conventions for Python files
+autoAttach: true
+---
+
+- Use `snake_case` for all variable and function names.
+- Use `PascalCase` for class names.
+- Keep functions under 30 lines when practical.
+- Include docstrings for all public classes and functions using triple double-quotes (`"""`).
+- Alphabetize imports and dependency lists where appropriate.
+- Prefer early returns and guard clauses to reduce nesting.
+- Use consistent spacing: one blank line between functions, two between classes.
+- Limit nested blocks (if/for/while) to 2 levels deep for readability.
+- Type hint all function arguments and return values.
+- Prefer `f"{value}"` formatting over `%` or `.format()`.
+- Use `with` blocks for file handling and resource management.
+- Avoid vague names like `data`, `stuff`, or `temp`—be descriptive.
+- Organize shared helper functions into `utils.py`.
+- Avoid global variables unless absolutely necessary.
+
+@src/**/*.py
+@tests/**/*.py
