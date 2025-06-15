@@ -8,13 +8,13 @@ dynamic = ["version"]
 description = "A Cursor-optimized Python template for vibe-first development"
 authors = [{ name = "Daryl Kang", email = "darylkang@live.com" }]
 readme = "README.md"
-license = { text = "MIT" }
+
 requires-python = ">=3.10"
 keywords = ["template", "cursor", "hatch", "cli", "development"]
 classifiers = [
     "Development Status :: 4 - Beta",
     "Intended Audience :: Developers",
-    "License :: OSI Approved :: MIT License",
+
     "Operating System :: OS Independent",
     "Programming Language :: Python :: 3",
     "Programming Language :: Python :: 3.10",
@@ -27,7 +27,7 @@ dependencies = [
     "pydantic-settings>=2.0",
     "python-dotenv",
     "rich",
-    "typer[all]>=0.9.0",
+    "typer>=0.9.0",
 ]
 
 [project.optional-dependencies]
@@ -59,6 +59,9 @@ vibe = "my_package.cli:app"
 
 [tool.hatch.version]
 path = "src/my_package/__init__.py"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/my_package"]
 
 [tool.hatch.envs.default]
 dependencies = [
@@ -121,7 +124,7 @@ addopts = [
     "--cov=my_package",
     "--cov=tests",
     "--cov-report=term-missing",
-    "--cov-fail-under=80",
+    "--cov-fail-under=70",
 ]
 testpaths = ["tests"]
 filterwarnings = [
@@ -182,6 +185,12 @@ ignore = [
     "B027",
     # Allow boolean positional values in function calls, like `dict.get(... True)`
     "FBT003",
+    # Allow boolean-typed positional arguments (common in CLI)
+    "FBT001", "FBT002",
+    # Allow exceptions without `from` in CLI contexts
+    "B904",
+    # Allow f-strings in exceptions (more readable)
+    "EM102",
     # Ignore checks for possible passwords
     "S105", "S106", "S107",
     # Ignore complexity

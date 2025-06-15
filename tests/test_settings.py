@@ -22,7 +22,7 @@ class TestSettings:
     def test_default_settings(self) -> None:
         """Test default settings values."""
         settings = Settings()
-        
+
         assert settings.debug is False
         assert settings.log_level == "INFO"
         assert settings.default_transform == "uppercase"
@@ -37,20 +37,23 @@ class TestSettings:
             log_level="DEBUG",
             max_batch_size=50,
         )
-        
+
         assert settings.debug is True
         assert settings.log_level == "DEBUG"
         assert settings.max_batch_size == 50
 
-    @patch.dict(os.environ, {
-        "APP_DEBUG": "true",
-        "APP_LOG_LEVEL": "WARNING",
-        "APP_MAX_BATCH_SIZE": "200",
-    })
+    @patch.dict(
+        os.environ,
+        {
+            "APP_DEBUG": "true",
+            "APP_LOG_LEVEL": "WARNING",
+            "APP_MAX_BATCH_SIZE": "200",
+        },
+    )
     def test_environment_variables(self) -> None:
         """Test loading settings from environment variables."""
         settings = Settings()
-        
+
         assert settings.debug is True
         assert settings.log_level == "WARNING"
         assert settings.max_batch_size == 200
@@ -59,12 +62,12 @@ class TestSettings:
         """Test that directories are created during initialization."""
         data_dir = tmp_path / "test_data"
         output_dir = tmp_path / "test_output"
-        
-        settings = Settings(
+
+        Settings(
             data_dir=data_dir,
             output_dir=output_dir,
         )
-        
+
         assert data_dir.exists()
         assert output_dir.exists()
 
@@ -73,15 +76,15 @@ class TestSettings:
         # Test minimum constraint
         with pytest.raises(ValueError):
             Settings(max_batch_size=0)
-        
+
         # Test maximum constraint
         with pytest.raises(ValueError):
             Settings(max_batch_size=1001)
-        
+
         # Test valid values
         settings = Settings(max_batch_size=1)
         assert settings.max_batch_size == 1
-        
+
         settings = Settings(max_batch_size=1000)
         assert settings.max_batch_size == 1000
 
@@ -113,7 +116,7 @@ class TestSettings:
         """Test log configuration with Rich output enabled."""
         settings = Settings(enable_rich_output=True)
         config = settings.get_log_config()
-        
+
         assert config["level"] == "INFO"
         assert config["format"] == "%(message)s"
 
@@ -121,7 +124,7 @@ class TestSettings:
         """Test log configuration with Rich output disabled."""
         settings = Settings(enable_rich_output=False)
         config = settings.get_log_config()
-        
+
         assert config["level"] == "INFO"
         assert "%(asctime)s" in config["format"]
 
@@ -129,13 +132,13 @@ class TestSettings:
         """Test that Path objects are handled correctly."""
         custom_data_dir = tmp_path / "custom_data"
         custom_output_dir = tmp_path / "custom_output"
-        
+
         settings = Settings(
             data_dir=custom_data_dir,
             output_dir=custom_output_dir,
         )
-        
+
         assert settings.data_dir == custom_data_dir
         assert settings.output_dir == custom_output_dir
         assert custom_data_dir.exists()
-        assert custom_output_dir.exists() 
+        assert custom_output_dir.exists()

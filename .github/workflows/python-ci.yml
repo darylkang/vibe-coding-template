@@ -71,6 +71,9 @@ jobs:
       - name: Install Hatch
         run: pip install hatch
 
+      - name: Install package in editable mode
+        run: hatch run pip install -e .
+
       - name: Run tests
         run: hatch run test-cov
 
@@ -127,6 +130,9 @@ jobs:
 
       - name: Install Hatch
         run: pip install hatch
+
+      - name: Install package in editable mode
+        run: hatch run pip install -e .
 
       - name: Test CLI commands
         run: |

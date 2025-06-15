@@ -8,8 +8,8 @@ across all test files in the test suite.
 from __future__ import annotations
 
 import tempfile
+from collections.abc import Generator
 from pathlib import Path
-from typing import Generator
 
 import pytest
 
@@ -49,4 +49,4 @@ def empty_file(temp_dir: Path) -> Path:
     """Create an empty file for testing."""
     file_path = temp_dir / "empty.txt"
     file_path.write_text("", encoding="utf-8")
-    return file_path 
+    return file_path

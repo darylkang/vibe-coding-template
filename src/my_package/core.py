@@ -92,12 +92,14 @@ class MyPackage:
         """
         self.settings = settings or Settings()
         self.verbose = verbose
-        
+
         if self.verbose:
             logger.setLevel(logging.DEBUG)
             logger.debug("MyPackage initialized with verbose mode enabled")
 
-    def process(self, input_data: str, transform_type: str = "uppercase") -> ProcessingResult:
+    def process(
+        self, input_data: str, transform_type: str = "uppercase"
+    ) -> ProcessingResult:
         """
         Process input data with the specified transformation.
 
@@ -118,15 +120,15 @@ class MyPackage:
             input_data=input_data,
             transform_type=transform_type,
         )
-        
+
         try:
             result = self._apply_transformation(request)
-            
+
             if self.verbose:
                 logger.info(f"Processing completed successfully: {result.output_data}")
-            
+
             return result
-            
+
         except Exception as e:
             logger.error(f"Processing failed: {e}")
             return ProcessingResult(
@@ -138,15 +140,15 @@ class MyPackage:
     def _apply_transformation(self, request: ProcessingRequest) -> ProcessingResult:
         """
         Apply the requested transformation to the input data.
-        
+
         This is a private method that handles the actual transformation logic.
-        
+
         Args:
             request: The processing request containing input and parameters.
-            
+
         Returns:
             ProcessingResult with the transformed data.
-            
+
         Raises:
             ValueError: If the transformation type is not supported.
         """
@@ -157,17 +159,17 @@ class MyPackage:
             "reverse": lambda x: x[::-1],
             "capitalize": lambda x: x.capitalize(),
         }
-        
+
         if request.transform_type not in transformations:
             supported = ", ".join(transformations.keys())
             raise ValueError(
                 f"Unsupported transform_type: {request.transform_type}. "
                 f"Supported types: {supported}"
             )
-        
+
         transform_func = transformations[request.transform_type]
         output_data = transform_func(request.input_data)
-        
+
         return ProcessingResult(
             output_data=output_data,
             metadata={
@@ -177,7 +179,9 @@ class MyPackage:
             },
         )
 
-    def batch_process(self, inputs: list[str], transform_type: str = "uppercase") -> list[ProcessingResult]:
+    def batch_process(
+        self, inputs: list[str], transform_type: str = "uppercase"
+    ) -> list[ProcessingResult]:
         """
         Process multiple inputs in batch.
 

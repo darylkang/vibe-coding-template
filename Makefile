@@ -6,6 +6,7 @@ all: install lint format type-check test ## Install, lint, format, type-check, a
 install: ## Install package in development mode
 	@echo "🔧 Installing package in development mode..."
 	hatch env create
+	hatch run pip install -e .
 	@echo "✅ Installation complete! Run 'hatch shell' to activate."
 
 dev-install: ## Install with all development dependencies  
