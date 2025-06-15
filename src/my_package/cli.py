@@ -15,7 +15,7 @@ from my_package.core import MyPackage
 # Create the Typer app
 app = typer.Typer(
     name="vibe",
-    help="A minimal Python CLI template for LLM-assisted development.",
+    help="Modern Python development made easy with TDD enforcement.",
 )
 
 
@@ -35,7 +35,7 @@ def main(
         typer.Option("--version", "-v", callback=version_callback, help="Show version"),
     ] = False,
 ) -> None:
-    """Vibe Coding Template CLI - Modern Python development made easy."""
+    """Vibe Coding Template - Test-driven Python development made easy."""
 
 
 @app.command()

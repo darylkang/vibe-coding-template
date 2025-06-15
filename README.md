@@ -3,7 +3,7 @@
 A minimal Python starter template optimized for LLM-assisted development with **Test-Driven Development (TDD)** enforcement and modern tooling.
 
 [![CI](https://github.com/darylkang/vibe-coding-template/workflows/CI/badge.svg)](https://github.com/darylkang/vibe-coding-template/actions)
-[![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/downloads/)
+[![Python 3.10+](https://img.shields.io/badge/python-3.10%20|%203.11%20|%203.12%20|%203.13-blue.svg)](https://www.python.org/downloads/)
 [![TDD Enforced](https://img.shields.io/badge/TDD-enforced-green.svg)](https://github.com/darylkang/vibe-coding-template)
 
 ## ✨ What's Included
@@ -46,9 +46,8 @@ This template provides a clean foundation for modern Python development with **m
 
 3. **Try the CLI**
    ```bash
-   hatch shell
-   vibe process "hello world"
-   vibe info
+   hatch run vibe process "hello world"
+   hatch run vibe info
    ```
 
 ## 🧪 TDD Development Workflow

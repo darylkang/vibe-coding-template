@@ -20,7 +20,7 @@ class TestCLI:
         runner = CliRunner()
         result = runner.invoke(app, ["--help"])
         assert result.exit_code == 0
-        assert "minimal Python CLI template" in result.stdout
+        assert "Modern Python development made easy with TDD enforcement" in result.stdout
 
     def test_version_command(self) -> None:
         """Test version command."""
