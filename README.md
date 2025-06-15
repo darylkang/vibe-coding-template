@@ -73,6 +73,20 @@ make clean
 
 This is a private project.
 
+## 🧠 Optional: Enable TaskMaster AI
+
+Once you start a new project from this template, you can optionally enable [TaskMaster AI](https://task-master.dev) for structured task and subtask generation:
+
+1. **Add API keys** to `.cursor/mcp.json`
+2. **Enable in Cursor**:  
+   Open the MCP tab in Cursor and activate `taskmaster-ai`
+3. **Add a PRD**:  
+   Create `.taskmaster/docs/prd.txt` and add your product requirements
+4. **Prompt Cursor**:  
+   Ask: `Initialize taskmaster-ai in my project`
+
+TaskMaster will help structure your LLM-driven workflows and make Cursor more effective.
+
 ---
 
 **Built for speed** ⚡ **LLM-friendly** 🤖 **Modern Python** 🐍
