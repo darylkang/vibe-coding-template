@@ -5,54 +5,39 @@ build-backend = "hatchling.build"
 [project]
 name = "vibe_coding_template"
 dynamic = ["version"]
-description = "A Cursor-optimized Python template for vibe-first development"
+description = "A minimal Python template for LLM-assisted development"
 authors = [{ name = "Daryl Kang", email = "darylkang@live.com" }]
 readme = "README.md"
-
 requires-python = ">=3.10"
 keywords = ["template", "cursor", "hatch", "cli", "development"]
 classifiers = [
     "Development Status :: 4 - Beta",
     "Intended Audience :: Developers",
-
     "Operating System :: OS Independent",
     "Programming Language :: Python :: 3",
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
-    "Topic :: Software Development :: Libraries :: Python Modules",
 ]
 dependencies = [
     "pydantic>=2.0",
     "pydantic-settings>=2.0",
     "python-dotenv",
-    "rich",
     "typer>=0.9.0",
 ]
 
 [project.optional-dependencies]
 dev = [
-    "coverage[toml]",
     "mypy",
-    "pre-commit",
     "pytest>=7.0",
     "pytest-cov",
-    "pytest-mock",
     "ruff>=0.1.0",
-]
-jupyter = [
-    "ipykernel",
-    "jupyter",
-    "nbformat",
-]
-all = [
-    "vibe_coding_template[dev,jupyter]",
 ]
 
 [project.urls]
-Documentation = "https://github.com/yourusername/vibe-coding-template#readme"
-Issues = "https://github.com/yourusername/vibe-coding-template/issues"
-Source = "https://github.com/yourusername/vibe-coding-template"
+Documentation = "https://github.com/darylkang/vibe-coding-template#readme"
+Issues = "https://github.com/darylkang/vibe-coding-template/issues"
+Source = "https://github.com/darylkang/vibe-coding-template"
 
 [project.scripts]
 vibe = "my_package.cli:app"
@@ -65,88 +50,29 @@ packages = ["src/my_package"]
 
 [tool.hatch.envs.default]
 dependencies = [
-    "coverage[toml]",
     "mypy",
     "pytest>=7.0",
     "pytest-cov",
-    "pytest-mock",
     "ruff>=0.1.0",
 ]
 
 [tool.hatch.envs.default.scripts]
 test = "pytest {args:tests}"
-test-cov = "coverage run -m pytest {args:tests}"
-cov-report = [
-    "- coverage combine",
-    "coverage report",
-]
-cov-html = [
-    "- coverage combine",
-    "coverage html",
-]
-type-check = "mypy --install-types --non-interactive {args:src/my_package tests}"
 lint = "ruff check {args:.}"
 format = "ruff format {args:.}"
-format-check = "ruff format --check {args:.}"
-lint-fix = "ruff check --fix {args:.}"
-
-[tool.hatch.envs.jupyter]
-extra-dependencies = [
-    "ipykernel",
-    "jupyter", 
-    "nbformat",
-]
-
-[tool.coverage.run]
-branch = true
-source_pkgs = ["my_package", "tests"]
-omit = [
-    "src/my_package/__about__.py",
-]
-
-[tool.coverage.paths]
-my_package = ["src/my_package", "*/vibe_coding_template/src/my_package"]
-tests = ["tests", "*/vibe_coding_template/tests"]
-
-[tool.coverage.report]
-exclude_lines = [
-    "no cov",
-    "if __name__ == .__main__.:",
-    "if TYPE_CHECKING:",
-]
+type-check = "mypy {args:src/my_package tests}"
 
 [tool.pytest.ini_options]
 minversion = "7.0"
-addopts = [
-    "-ra",
-    "--strict-markers",
-    "--strict-config",
-    "--cov=my_package",
-    "--cov=tests",
-    "--cov-report=term-missing",
-    "--cov-fail-under=70",
-]
+addopts = ["-ra", "--strict-markers", "--cov=my_package", "--cov-fail-under=50"]
 testpaths = ["tests"]
-filterwarnings = [
-    "error",
-    "ignore::UserWarning",
-    "ignore:.*deprecated.*:DeprecationWarning",
-]
 
 [tool.mypy]
 python_version = "3.10"
 check_untyped_defs = true
-disallow_any_generics = true
-disallow_incomplete_defs = true
 disallow_untyped_defs = true
-no_implicit_optional = true
-no_implicit_reexport = true
-strict_equality = true
-warn_redundant_casts = true
 warn_return_any = true
-warn_unreachable = true
 warn_unused_configs = true
-warn_unused_ignores = true
 
 [tool.ruff]
 target-version = "py310"
@@ -154,59 +80,5 @@ line-length = 88
 src = ["src", "tests"]
 
 [tool.ruff.lint]
-select = [
-    "A",     # flake8-builtins
-    "ARG",   # flake8-unused-arguments
-    "B",     # flake8-bugbear
-    "C",     # mccabe
-    "DTZ",   # flake8-datetimez
-    "E",     # pycodestyle (Error)
-    "EM",    # flake8-errmsg
-    "F",     # pyflakes
-    "FBT",   # flake8-boolean-trap
-    "I",     # isort
-    "ICN",   # flake8-import-conventions
-    "N",     # pep8-naming
-    "PLC",   # pylint (Convention)
-    "PLE",   # pylint (Error)
-    "PLR",   # pylint (Refactor)
-    "PLW",   # pylint (Warning)
-    "Q",     # flake8-quotes
-    "RUF",   # Ruff-specific rules
-    "S",     # flake8-bandit
-    "T",     # flake8-debugger (T10) and flake8-print (T20)
-    "TID",   # flake8-tidy-imports
-    "UP",    # pyupgrade
-    "W",     # pycodestyle (Warning)
-    "YTT",   # flake8-2020
-]
-ignore = [
-    # Allow non-abstract empty methods in abstract base classes
-    "B027",
-    # Allow boolean positional values in function calls, like `dict.get(... True)`
-    "FBT003",
-    # Allow boolean-typed positional arguments (common in CLI)
-    "FBT001", "FBT002",
-    # Allow exceptions without `from` in CLI contexts
-    "B904",
-    # Allow f-strings in exceptions (more readable)
-    "EM102",
-    # Ignore checks for possible passwords
-    "S105", "S106", "S107",
-    # Ignore complexity
-    "C901", "PLR0911", "PLR0912", "PLR0913", "PLR0915",
-]
-unfixable = [
-    # Don't touch unused imports
-    "F401",
-]
-
-[tool.ruff.lint.isort]
-known-first-party = ["my_package"]
-
-[tool.ruff.lint.flake8-tidy-imports]
-ban-relative-imports = "all"
-
-[tool.ruff.lint.per-file-ignores]
-# Tests can use magic values, assertions, and relative imports
-"tests/**/*" = ["PLR2004", "S101", "TID252"]
+select = ["E", "F", "I", "N", "W", "UP"]
+ignore = ["E501"]  # Line too long (handled by formatter)

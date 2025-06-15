@@ -1,16 +1,8 @@
 """
-Core logic for the application.
+Core business logic and models.
 
-This module contains the main business logic and data processing functions.
-It demonstrates best practices for structuring a modern Python application
-with proper type hints, Pydantic models, and clear separation of concerns.
-
-INSTRUCTIONS FOR CURSOR:
-- Implement functions based on top-level docstrings or inline comments
-- Use Pydantic models for structured inputs/outputs
-- Keep each function focused, testable, and well-documented
-- Add new methods to MyPackage class as needed
-- Consider breaking into separate modules as the project grows
+This module demonstrates modern Python patterns with Pydantic models
+and clean architecture for LLM-assisted development.
 """
 
 from __future__ import annotations
@@ -19,21 +11,12 @@ import logging
 from typing import Any
 
 from pydantic import BaseModel, Field
-from rich.console import Console
-from rich.logging import RichHandler
 
 from my_package.settings import Settings
 
-# Configure logging with Rich
-logging.basicConfig(
-    level="INFO",
-    format="%(message)s",
-    datefmt="[%X]",
-    handlers=[RichHandler(rich_tracebacks=True)],
-)
-
+# Configure basic logging
+logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
 logger = logging.getLogger(__name__)
-console = Console()
 
 
 class ProcessingRequest(BaseModel):
@@ -43,10 +26,6 @@ class ProcessingRequest(BaseModel):
     transform_type: str = Field(
         default="uppercase",
         description="Type of transformation to apply",
-    )
-    options: dict[str, Any] = Field(
-        default_factory=dict,
-        description="Additional options for processing",
     )
 
 
@@ -65,37 +44,19 @@ class MyPackage:
     """
     Main interface class for the package.
 
-    This class serves as the central point of interaction for the package,
-    providing a clean API for common operations while maintaining state
-    and configuration.
-
-    INSTRUCTIONS FOR CURSOR:
-    - Add methods that wrap or coordinate internal modules
-    - Ensure methods are well-documented with clear parameters and return types
-    - Use Pydantic models for complex inputs/outputs
-    - Keep methods focused on single responsibilities
+    This class demonstrates clean architecture patterns and serves as
+    the primary API for the package functionality.
 
     Example:
-        >>> package = MyPackage(verbose=True)
+        >>> package = MyPackage()
         >>> result = package.process("hello world")
-        >>> print(result.output_data)
-        HELLO WORLD
+        >>> print(result.output_data)  # "HELLO WORLD"
     """
 
-    def __init__(self, settings: Settings | None = None, verbose: bool = False) -> None:
-        """
-        Initialize the main package interface.
-
-        Args:
-            settings: Application settings. If None, will load from environment.
-            verbose: If True, enables verbose output/logging.
-        """
+    def __init__(self, settings: Settings | None = None) -> None:
+        """Initialize the package with optional settings."""
         self.settings = settings or Settings()
-        self.verbose = verbose
-
-        if self.verbose:
-            logger.setLevel(logging.DEBUG)
-            logger.debug("MyPackage initialized with verbose mode enabled")
+        logger.debug("MyPackage initialized")
 
     def process(
         self, input_data: str, transform_type: str = "uppercase"
@@ -109,12 +70,8 @@ class MyPackage:
 
         Returns:
             ProcessingResult containing the processed data and metadata.
-
-        Raises:
-            ValueError: If transform_type is not supported.
         """
-        if self.verbose:
-            logger.info(f"Processing input with transform: {transform_type}")
+        logger.info(f"Processing input with transform: {transform_type}")
 
         request = ProcessingRequest(
             input_data=input_data,
@@ -123,10 +80,7 @@ class MyPackage:
 
         try:
             result = self._apply_transformation(request)
-
-            if self.verbose:
-                logger.info(f"Processing completed successfully: {result.output_data}")
-
+            logger.info("Processing completed successfully")
             return result
 
         except Exception as e:
@@ -138,20 +92,7 @@ class MyPackage:
             )
 
     def _apply_transformation(self, request: ProcessingRequest) -> ProcessingResult:
-        """
-        Apply the requested transformation to the input data.
-
-        This is a private method that handles the actual transformation logic.
-
-        Args:
-            request: The processing request containing input and parameters.
-
-        Returns:
-            ProcessingResult with the transformed data.
-
-        Raises:
-            ValueError: If the transformation type is not supported.
-        """
+        """Apply the requested transformation to the input data."""
         transformations = {
             "uppercase": lambda x: x.upper(),
             "lowercase": lambda x: x.lower(),
@@ -179,38 +120,9 @@ class MyPackage:
             },
         )
 
-    def batch_process(
-        self, inputs: list[str], transform_type: str = "uppercase"
-    ) -> list[ProcessingResult]:
-        """
-        Process multiple inputs in batch.
-
-        Args:
-            inputs: List of input strings to process.
-            transform_type: Type of transformation to apply to all inputs.
-
-        Returns:
-            List of ProcessingResult objects.
-        """
-        if self.verbose:
-            logger.info(f"Batch processing {len(inputs)} items")
-
-        results = []
-        for input_data in inputs:
-            result = self.process(input_data, transform_type)
-            results.append(result)
-
-        return results
-
     def get_stats(self) -> dict[str, Any]:
-        """
-        Get package statistics and information.
-
-        Returns:
-            Dictionary containing package statistics and configuration.
-        """
+        """Get package statistics and information."""
         return {
             "version": "0.1.0",
-            "verbose_mode": self.verbose,
             "settings": self.settings.model_dump(),
         }

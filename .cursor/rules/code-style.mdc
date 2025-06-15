@@ -8,20 +8,102 @@ description: Code style and formatting conventions for Python files
 autoAttach: true
 ---
 
-- Use `snake_case` for all variable and function names.
-- Use `PascalCase` for class names.
-- Keep functions under 30 lines when practical.
-- Include docstrings for all public classes and functions using triple double-quotes (`"""`).
-- Alphabetize imports and dependency lists where appropriate.
-- Prefer early returns and guard clauses to reduce nesting.
-- Use consistent spacing: one blank line between functions, two between classes.
-- Limit nested blocks (if/for/while) to 2 levels deep for readability.
-- Type hint all function arguments and return values.
-- Prefer `f"{value}"` formatting over `%` or `.format()`.
-- Use `with` blocks for file handling and resource management.
-- Avoid vague names like `data`, `stuff`, or `temp`—be descriptive.
-- Organize shared helper functions into `utils.py`.
-- Avoid global variables unless absolutely necessary.
+# Python Code Style Guidelines
 
+## Core Principles
+- Use `from __future__ import annotations` for forward references
+- Add comprehensive type hints for all functions and methods
+- Use Pydantic models for structured data
+- Prefer explicit over implicit behavior
+
+## Code Organization
+- Keep functions focused and single-purpose  
+- Use descriptive variable and function names
+- Add docstrings for public methods and classes
+- Group related functionality into logical modules
+
+## Modern Python Patterns
+- Use dataclasses or Pydantic models instead of dicts
+- Leverage pathlib.Path for file operations
+- Use context managers for resource handling
+- Implement proper error handling with specific exceptions
+
+## Python Code Style & Best Practices
+
+### Naming Conventions
+- Use `snake_case` for all variable and function names
+- Use `PascalCase` for class names
+- Use `UPPER_SNAKE_CASE` for constants
+- Use descriptive names that clearly indicate purpose
+- Avoid abbreviations unless they're widely understood (e.g., `url`, `http`)
+
+### Type Hints & Modern Python
+- Always use type hints for function arguments and return values
+- Prefer modern type syntax: `list[str]` over `List[str]` (Python 3.9+)
+- Use `| None` instead of `Optional` where possible
+- Use `Any` sparingly and document why it's necessary
+
+### Function & Class Design
+- Keep functions under 30 lines when practical
+- Functions should do one thing well (Single Responsibility Principle)
+- Use early returns and guard clauses to reduce nesting
+- Limit nested blocks (if/for/while) to 2 levels deep for readability
+- Include comprehensive docstrings for all public classes and functions
+- Use triple double-quotes (`"""`) for docstrings
+
+### Error Handling & Validation
+- Use Pydantic models for data validation and serialization
+- Prefer specific exception types over generic `Exception`
+- Always handle errors gracefully in CLI applications
+- Use logging instead of print statements for debugging
+- Validate inputs at function boundaries
+
+### Code Organization
+- Use consistent spacing: one blank line between functions, two between classes
+- Alphabetize imports and group them (stdlib, third-party, local)
+- Organize shared helper functions into dedicated modules
+- Keep configuration in settings.py using Pydantic Settings
+- Separate business logic from presentation logic
+
+### String Formatting & I/O
+- Prefer `f"{value}"` formatting over `%` or `.format()`
+- Use `with` blocks for file handling and resource management
+- Handle encoding explicitly when reading/writing files
+
+### Testing & Documentation
+- Write tests for all public functions and methods
+- Use descriptive test names that explain what is being tested
+- Group related tests using classes
+- Use fixtures for common setup/teardown operations
+- Test both happy path and error conditions
+
+### Rich/CLI Best Practices
+- Use Rich for beautiful console output in CLI applications
+- Provide progress bars for long-running operations
+- Use colored output to highlight important information
+- Include help text for all CLI commands and options
+- Handle keyboard interrupts gracefully
+
+### LLM-Friendly Code
+- Add `# INSTRUCTIONS FOR CURSOR:` comments to guide AI completions
+- Write clear, self-documenting code that explains intent
+- Use descriptive variable names that reduce need for comments
+- Structure code in logical, predictable patterns
+- Include TODO comments for future enhancements
+
+### Performance & Memory
+- Avoid global variables unless absolutely necessary
+- Use generators for large datasets when possible
+- Close resources properly (files, connections, etc.)
+- Cache expensive computations when appropriate
+
+### Security Considerations
+- Never hardcode secrets or credentials
+- Use environment variables for configuration
+- Validate and sanitize all user inputs
+- Be cautious with `eval()`, `exec()`, and similar functions
+
+Apply these rules to:
 @src/**/*.py
 @tests/**/*.py
+@*.py
