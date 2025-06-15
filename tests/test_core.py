@@ -8,7 +8,7 @@ from __future__ import annotations
 
 import pytest
 
-from my_package._version import __version__
+from my_package import __version__
 from my_package.core import MyPackage, ProcessingRequest, ProcessingResult
 from my_package.settings import Settings
 

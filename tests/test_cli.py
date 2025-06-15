@@ -8,7 +8,7 @@ from __future__ import annotations
 
 from typer.testing import CliRunner
 
-from my_package._version import __version__
+from my_package import __version__
 from my_package.cli import app
 
 
