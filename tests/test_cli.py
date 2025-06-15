@@ -8,6 +8,7 @@ from __future__ import annotations
 
 from typer.testing import CliRunner
 
+from my_package._version import __version__
 from my_package.cli import app
 
 
@@ -26,7 +27,7 @@ class TestCLI:
         runner = CliRunner()
         result = runner.invoke(app, ["--version"])
         assert result.exit_code == 0
-        assert "vibe version: 0.1.0" in result.stdout
+        assert f"vibe version: {__version__}" in result.stdout
 
     def test_process_command_basic(self) -> None:
         """Test basic process command."""
@@ -48,4 +49,4 @@ class TestCLI:
         result = runner.invoke(app, ["info"])
         assert result.exit_code == 0
         assert "Package Information" in result.stdout
-        assert "Version: 0.1.0" in result.stdout
+        assert f"Version: {__version__}" in result.stdout

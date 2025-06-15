@@ -8,6 +8,7 @@ from __future__ import annotations
 
 import pytest
 
+from my_package._version import __version__
 from my_package.core import MyPackage, ProcessingRequest, ProcessingResult
 from my_package.settings import Settings
 
@@ -89,4 +90,4 @@ class TestMyPackage:
         stats = package.get_stats()
         assert "version" in stats
         assert "settings" in stats
-        assert stats["version"] == "0.1.0"
+        assert stats["version"] == __version__

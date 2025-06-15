@@ -10,6 +10,7 @@ from typing import Annotated
 
 import typer
 
+from my_package._version import __version__
 from my_package.core import MyPackage
 
 # Create the Typer app
@@ -22,7 +23,7 @@ app = typer.Typer(
 def version_callback(value: bool) -> None:
     """Print version information and exit."""
     if value:
-        print("vibe version: 0.1.0")
+        print(f"vibe version: {__version__}")
         raise typer.Exit()
 
 
@@ -64,7 +65,7 @@ def info() -> None:
     stats = package.get_stats()
 
     print("Package Information:")
-    print(f"  Version: {stats['version']}")
+    print(f"  Version: {__version__}")
     print(f"  Debug Mode: {stats['settings']['debug']}")
     print(f"  Default Transform: {stats['settings']['default_transform']}")
 

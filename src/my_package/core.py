@@ -12,6 +12,7 @@ from typing import Any
 
 from pydantic import BaseModel, Field
 
+from my_package._version import __version__
 from my_package.settings import Settings
 
 # Configure basic logging
@@ -123,6 +124,6 @@ class MyPackage:
     def get_stats(self) -> dict[str, Any]:
         """Get package statistics and information."""
         return {
-            "version": "0.1.0",
+            "version": __version__,
             "settings": self.settings.model_dump(),
         }

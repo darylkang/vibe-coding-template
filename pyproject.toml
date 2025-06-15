@@ -31,6 +31,7 @@ dev = [
     "mypy",
     "pytest>=7.0",
     "pytest-cov",
+    "pytest-xdist",  # For TDD watch mode (--looponfail flag)
     "ruff>=0.1.0",
 ]
 
@@ -53,6 +54,7 @@ dependencies = [
     "mypy",
     "pytest>=7.0",
     "pytest-cov",
+    "pytest-xdist",  # For TDD watch mode (--looponfail flag)
     "ruff>=0.1.0",
 ]
 
