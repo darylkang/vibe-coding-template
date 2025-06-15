@@ -8,16 +8,13 @@ dynamic = ["version"]
 description = "A minimal Python template with enforced TDD for LLM-assisted development"
 authors = [{ name = "Daryl Kang", email = "darylkang@live.com" }]
 readme = "README.md"
-requires-python = ">=3.10"
+requires-python = ">=3.13"
 keywords = ["template", "tdd", "cursor", "hatch", "cli", "development"]
 classifiers = [
     "Development Status :: 4 - Beta",
     "Intended Audience :: Developers",
     "Operating System :: OS Independent",
     "Programming Language :: Python :: 3",
-    "Programming Language :: Python :: 3.10",
-    "Programming Language :: Python :: 3.11",
-    "Programming Language :: Python :: 3.12",
     "Programming Language :: Python :: 3.13",
 ]
 dependencies = [
@@ -71,14 +68,14 @@ addopts = ["-ra", "--strict-markers", "--cov=my_package", "--cov-fail-under=50"]
 testpaths = ["tests"]
 
 [tool.mypy]
-python_version = "3.10"
+python_version = "3.13"
 check_untyped_defs = true
 disallow_untyped_defs = true
 warn_return_any = true
 warn_unused_configs = true
 
 [tool.ruff]
-target-version = "py310"
+target-version = "py313"
 line-length = 88
 src = ["src", "tests"]
 

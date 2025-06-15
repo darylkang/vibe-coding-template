@@ -3,7 +3,7 @@
 A minimal Python starter template optimized for LLM-assisted development with **Test-Driven Development (TDD)** enforcement and modern tooling.
 
 [![CI](https://github.com/darylkang/vibe-coding-template/workflows/CI/badge.svg)](https://github.com/darylkang/vibe-coding-template/actions)
-[![Python 3.10+](https://img.shields.io/badge/python-3.10%20|%203.11%20|%203.12%20|%203.13-blue.svg)](https://www.python.org/downloads/)
+[![Python 3.13](https://img.shields.io/badge/python-3.13-blue.svg)](https://www.python.org/downloads/)
 [![TDD Enforced](https://img.shields.io/badge/TDD-enforced-green.svg)](https://github.com/darylkang/vibe-coding-template)
 
 ## ✨ What's Included
@@ -27,7 +27,6 @@ This template provides a clean foundation for modern Python development with **m
 - **Cursor rules** that enforce TDD and code quality
 - **TaskMaster AI integration** for structured task management
 - **Clean patterns** that AI can understand and extend
-- **Comprehensive documentation** and examples
 
 ## 🚀 Quick Start
 
@@ -86,21 +85,22 @@ make clean         # Clean build artifacts
 ## 📁 Project Structure
 
 ```
-├── .cursor/                 # Cursor AI configuration
-│   ├── rules/               # TDD and code quality rules
-│   │   ├── development.mdc  # Core TDD methodology
-│   │   ├── tdd-workflow.mdc # Quick TDD reference
-│   │   └── code-style.mdc   # Python code standards
-│   └── mcp.json            # TaskMaster AI configuration
-├── src/my_package/          # Main package
-│   ├── core.py              # Business logic
-│   ├── cli.py               # Command-line interface
-│   └── settings.py          # Configuration
-├── tests/                   # Test suite (pytest)
-├── .taskmaster/             # TaskMaster AI integration
-├── pyproject.toml           # Project configuration
-├── Makefile                 # Development commands
-└── README.md               # You are here
+├── .cursor/                    # Cursor AI configuration
+│   ├── rules/                  # TDD and code quality rules
+│   │   ├── development.mdc     # Core TDD methodology
+│   │   ├── tdd-workflow.mdc    # Quick TDD reference
+│   │   └── code-style.mdc      # Python code standards
+│   └── mcp.json                # TaskMaster AI configuration
+├── src/my_package/             # Main package
+│   ├── core.py                 # Business logic
+│   ├── cli.py                  # Command-line interface
+│   └── settings.py             # Configuration
+├── tests/                      # Test suite (pytest)
+├── .taskmaster/                # TaskMaster AI integration
+├── .env.example                # Environment variables template
+├── pyproject.toml              # Project configuration
+├── Makefile                    # Development commands
+└── README.md                   # You are here
 ```
 
 ## 🔧 Customization Guide
@@ -161,7 +161,7 @@ npm install -g task-master-ai
 ```
 
 ### 2. **Initialize TaskMaster**
-```python
+```bash
 # In Cursor, ask: "Initialize taskmaster-ai in my project"
 # This will set up task management structure
 ```
@@ -193,7 +193,7 @@ npm install -g task-master-ai
 
 ## 🔍 Monitoring & CI
 
-- **GitHub Actions**: Automated testing, linting, and type checking
+- **GitHub Actions**: Automated testing, linting, and type checking on Python 3.13
 - **Pre-commit hooks**: Code quality checks before commits
 - **Coverage reporting**: HTML reports in `htmlcov/`
 
