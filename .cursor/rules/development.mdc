@@ -1,5 +1,218 @@
 ---
-description:
-globs:
+description: 
+globs: 
 alwaysApply: false
 ---
+# Test-Driven Development (TDD) Rules
+
+## Core TDD Principle
+**ALWAYS follow the Red-Green-Refactor cycle:**
+1. **RED**: Write a failing test first
+2. **GREEN**: Write minimal code to make the test pass
+3. **REFACTOR**: Improve code while keeping tests passing
+
+## Mandatory TDD Workflow
+
+### Before Implementing ANY New Feature:
+1. **Write the test first** - Never write production code without a failing test
+2. **Run the test** - Confirm it fails for the right reason
+3. **Write minimal implementation** - Only enough to make the test pass
+4. **Run tests again** - Ensure the test passes and no existing tests break
+5. **Refactor if needed** - Improve code quality while maintaining green tests
+
+### Test-First Requirements:
+- **New functions/methods**: Write at least one test before implementation
+- **Bug fixes**: Write a test that reproduces the bug, then fix it
+- **API changes**: Update tests first, then adapt implementation
+- **Edge cases**: Add tests for edge cases before handling them in code
+
+## Test Quality Standards
+
+### Test Structure (AAA Pattern):
+```python
+def test_feature_description():
+    # ARRANGE: Set up test data and environment
+    input_data = "test input"
+    expected_result = "expected output"
+    
+    # ACT: Execute the code under test
+    actual_result = function_under_test(input_data)
+    
+    # ASSERT: Verify the results
+    assert actual_result == expected_result
+```
+
+### Test Naming Convention:
+- Use descriptive names: `test_should_return_empty_list_when_no_items_found()`
+- Include the scenario: `test_user_login_fails_with_invalid_password()`
+- Be specific about expected behavior: `test_calculate_tax_returns_zero_for_negative_income()`
+
+### Test Coverage Requirements:
+- **Happy path**: Normal, expected use cases
+- **Edge cases**: Boundary conditions, empty inputs, maximum values
+- **Error cases**: Invalid inputs, exceptions, network failures
+- **Integration points**: External dependencies, database interactions
+
+## TDD Implementation Patterns
+
+### For New Classes:
+1. Write tests for the class interface first
+2. Test constructor and basic properties
+3. Test each method individually
+4. Test method interactions
+5. Only then implement the class
+
+### For New Functions:
+1. Write test with expected input/output
+2. Include docstring with examples in the test
+3. Test edge cases and error conditions
+4. Implement function to pass all tests
+
+### For Bug Fixes:
+1. Write a test that reproduces the bug
+2. Confirm the test fails
+3. Fix the minimum code to make test pass
+4. Ensure no regression in other tests
+
+## Testing Tools & Commands
+
+### Running Tests:
+```bash
+# Run all tests
+make test
+
+# Run specific test file
+pytest tests/test_module.py
+
+# Run with coverage
+pytest --cov=src
+
+# Run in watch mode during development
+pytest --looponfail
+```
+
+### Test Organization:
+- Group related tests in classes
+- Use fixtures for common setup/teardown
+- Keep test files parallel to source structure
+- One test file per source module when possible
+
+## Code Examples & Patterns
+
+### Example TDD Flow:
+```python
+# STEP 1: Write failing test first
+def test_should_calculate_compound_interest():
+    # Arrange
+    principal = 1000
+    rate = 0.05
+    time = 2
+    expected = 1102.5
+    
+    # Act & Assert
+    result = calculate_compound_interest(principal, rate, time)
+    assert result == expected
+
+# STEP 2: Write minimal implementation
+def calculate_compound_interest(principal: float, rate: float, time: int) -> float:
+    return principal * (1 + rate) ** time
+
+# STEP 3: Add more test cases and refactor as needed
+```
+
+### Mock External Dependencies:
+```python
+from unittest.mock import Mock, patch
+
+def test_api_client_handles_network_error():
+    with patch('requests.get') as mock_get:
+        mock_get.side_effect = requests.ConnectionError("Network error")
+        
+        client = ApiClient()
+        result = client.fetch_data()
+        
+        assert result is None
+```
+
+## TDD Anti-Patterns to Avoid
+
+### Don't Do:
+- ❌ Writing production code before tests
+- ❌ Writing tests after implementation is complete
+- ❌ Testing implementation details instead of behavior
+- ❌ Writing overly complex tests that are hard to understand
+- ❌ Skipping the refactor step
+- ❌ Writing tests that don't actually test anything meaningful
+
+### Do:
+- ✅ Write the smallest possible test that fails
+- ✅ Write only enough production code to make tests pass
+- ✅ Test behavior, not implementation
+- ✅ Keep tests simple and focused
+- ✅ Refactor both test and production code regularly
+- ✅ Run tests frequently during development
+
+## Integration with Development Workflow
+
+### Before Starting Any Task:
+1. Understand the requirements clearly
+2. Write test cases that define the expected behavior
+3. Run tests to see them fail (RED)
+4. Implement the feature incrementally (GREEN)
+5. Refactor and improve code quality (REFACTOR)
+
+### Code Review Checklist:
+- Are there tests for all new functionality?
+- Do tests cover edge cases and error conditions?
+- Are test names descriptive and clear?
+- Does the implementation only do what's needed to pass tests?
+- Is the code well-refactored and maintainable?
+
+### Continuous Integration:
+- All tests must pass before merging
+- Code coverage should meet or exceed project standards
+- No production code without corresponding tests
+
+## Example Input/Output Documentation
+
+### For Functions:
+```python
+def format_currency(amount: float, currency: str = "USD") -> str:
+    """Format amount as currency string.
+    
+    Examples:
+        >>> format_currency(123.45)
+        '$123.45'
+        >>> format_currency(1000, "EUR")
+        '€1,000.00'
+    """
+    # Implementation follows after tests are written
+```
+
+### For Classes:
+```python
+class TaskManager:
+    """Manages a collection of tasks.
+    
+    Usage:
+        >>> manager = TaskManager()
+        >>> manager.add_task("Write tests")
+        >>> manager.get_pending_tasks()
+        ['Write tests']
+    """
+    # Implementation follows after tests are written
+```
+
+Remember: **No production code without a failing test first!**
+
+Apply these TDD rules to:
+@src/**/*.py
+@tests/**/*.py
+@*.py
+
+---
+
+**TDD Reminder**: Before implementing any feature, ask yourself:
+1. "What test would prove this works?"
+2. "What's the simplest test I can write?"
+3. "What's the minimum code needed to pass this test?"

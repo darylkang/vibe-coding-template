@@ -70,12 +70,15 @@ autoAttach: true
 - Use `with` blocks for file handling and resource management
 - Handle encoding explicitly when reading/writing files
 
-### Testing & Documentation
+### Testing & Documentation (TDD Required)
+- **MANDATORY**: Write tests BEFORE implementing any functionality (TDD)
+- Follow Red-Green-Refactor cycle: failing test → minimal code → refactor
 - Write tests for all public functions and methods
 - Use descriptive test names that explain what is being tested
 - Group related tests using classes
 - Use fixtures for common setup/teardown operations
 - Test both happy path and error conditions
+- No production code without a corresponding failing test first
 
 ### Rich/CLI Best Practices
 - Use Rich for beautiful console output in CLI applications
