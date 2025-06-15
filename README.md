@@ -146,8 +146,18 @@ Enable structured task management for LLM-driven development:
 
 ### 1. **Setup TaskMaster** (Optional)
 ```bash
-# Add API keys to .cursor/mcp.json (replace YOUR_* with actual keys)
-# Then in Cursor, activate the taskmaster-ai MCP server
+# 1. Copy environment template and add your API keys
+cp .env.example .env
+# Edit .env and add your actual API keys:
+# ANTHROPIC_API_KEY=your_actual_key_here
+# OPENAI_API_KEY=your_actual_key_here
+# PERPLEXITY_API_KEY=your_actual_key_here
+
+# 2. Install TaskMaster AI
+npm install -g task-master-ai
+
+# 3. In Cursor, activate the taskmaster-ai MCP server
+# The .cursor/mcp.json file will automatically use your .env variables
 ```
 
 ### 2. **Initialize TaskMaster**
